@@ -117,6 +117,9 @@ Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 
+Plug 'kana/vim-submode'
+Plug 'kana/vim-submode'
+
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 let g:coc_global_extensions = [
       \ 'coc-tsserver',
@@ -140,7 +143,7 @@ let g:coc_global_extensions = [
 
 call plug#end()
 
-set rtp+=/root/.fzf
+set rtp+=/usr/local/opt/fzf
 
 let mapleader = "\<Space>"
 
@@ -312,7 +315,13 @@ let g:lexical#spelllang = ['en_us', 'ru_ru']
 " let g:ale_javascript_tsserver_use_global = 1
 " let g:ale_javascript_eslint_use_global = 1
 
-let test#strategy = "neovim"
+function! EchoStrategy(cmd)
+  echo 'It works! Command for running tests: ' . a:cmd
+endfunction
+
+let g:test#custom_strategies = {'echo': function('EchoStrategy')}
+let g:test#strategy = 'echo'
+" let test#strategy = "neovim"
 
 " let g:buffergator_viewport_split_policy = "B"
 " let g:buffergator_sort_regime = "mru"
@@ -521,3 +530,28 @@ let g:lightline = {
 " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " " Resume latest coc list
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+
+" Navigate between tabs
+call submode#enter_with('next/prev/tab', 'n', '', '<tab>l', 'gt')
+call submode#enter_with('next/prev/tab', 'n', '', '<tab>h', 'gT')
+call submode#map('next/prev/tab', 'n', '', 'l', 'gt')
+call submode#map('next/prev/tab', 'n', '', 'h', 'gT')
+
+" Resize pane by heigth
+call submode#enter_with('grow/shrink', 'n', '', '<leader>k', '<C-w>+')
+call submode#enter_with('grow/shrink', 'n', '', '<leader>j', '<C-w>-')
+call submode#map('grow/shrink', 'n', '', 'k', '<C-w>-')
+call submode#map('grow/shrink', 'n', '', 'j', '<C-w>+')
+call submode#enter_with('widen/tighten', 'n', '', '<leader>h', '<C-W><lt>')
+call submode#enter_with('widen/tighten', 'n', '', '<leader>l', '<C-W>>')
+call submode#map('widen/tighten', 'n', '', 'h', '<C-W>10<lt>')
+call submode#map('widen/tighten', 'n', '', 'l', '<C-W>10>')
