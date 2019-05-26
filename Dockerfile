@@ -57,12 +57,15 @@ RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-COPY files/vimrc /root/.config/nvim/init.vim
-
 ENV PATH $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 ENV PATH $HOME/.composer/vendor/bin:$PATH
 
-ENV VERSION 23052019
+RUN mkdir -p $HOME/.config/coc/extensions
+RUN yarn --cwd $HOME/.config/coc/extensions add coc-tsserver coc-html coc-lists coc-phpls coc-sh coc-css coc-json coc-eslint coc-python coc-java coc-solargraph coc-yaml coc-highlight coc-snippets coc-pairs coc-docker coc-diagnostic
+
+COPY files/vimrc /root/.config/nvim/init.vim
+
+ENV VERSION 26052019
 
 RUN nvim -i NONE -c PlugInstall -c quitall
 
@@ -72,5 +75,7 @@ RUN chmod +x /usr/local/bin/languagetool
 ENV FZF_DEFAULT_COMMAND 'ag -g ""'
 
 COPY files/coc-settings.json /root/.config/nvim/coc-settings.json
+RUN mkdir p $HOME/.config/nvim/colors
+COPY files/gruvbox.vim $HOME/.config/nvim/colors/gruvbox.vim
 
 CMD ["nvim"]

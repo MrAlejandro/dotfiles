@@ -206,8 +206,7 @@ set cmdheight=2
 set signcolumn=yes
 set scrolloff=3
 
-set background=light
-silent! colorscheme scheakur
+silent! colorscheme gruvbox
 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
