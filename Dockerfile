@@ -1,18 +1,13 @@
-FROM alpine:latest
+FROM alpine:3.9.3
 
 RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
 RUN apk update && apk upgrade
 
 ENV HOME /root
 
-RUN apk add --no-cache build-base git curl wget bash ctags gnupg tar
+RUN apk add --no-cache build-base git curl wget bash ctags
 RUN apk add --no-cache libxml2-dev libxslt-dev libgcrypt-dev
 RUN apk add --no-cache libffi openssl-dev libffi-dev
-
-# RUN gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-# RUN curl -L https://get.rvm.io | bash -s stable
-# RUN /bin/bash -l -c "rvm requirements"
-# RUN /etc/profile.d/rvm.sh && rvm install --latest
 
 RUN apk add --no-cache python3 py-pip python2-dev python3-dev
 RUN apk add --no-cache ruby ruby-dev ruby-bundler ruby-json ruby-irb ruby-rake ruby-bigdecimal ruby-rdoc
@@ -51,6 +46,10 @@ RUN pip install yamllint ansible-lint python-language-server bashate neovim jedi
 RUN curl https://languagetool.org/download/LanguageTool-stable.zip --output languagetool.zip
 RUN unzip languagetool.zip && rm -rf languagetool.zip
 
+# # RUN wget -qO- -O ~/elixir-ls.zip https://github.com/JakeBecker/elixir-ls/releases/download/v0.2.24/elixir-ls.zip \
+# #       && mkdir ~/elixir-ls \
+# #       && unzip ~/elixir-ls.zip -d ~/elixir-ls
+
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
       && ~/.fzf/install --key-bindings --update-rc --completion \
       && cp /root/.fzf/bin/fzf /usr/local/bin
@@ -59,12 +58,11 @@ RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 COPY files/vimrc /root/.config/nvim/init.vim
-COPY files/scheakur.vim /root/.config/nvim/colors/scheakur.vim
 
 ENV PATH $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 ENV PATH $HOME/.composer/vendor/bin:$PATH
 
-ENV VERSION 26052019
+ENV VERSION 23052019
 
 RUN nvim -i NONE -c PlugInstall -c quitall
 
@@ -74,7 +72,5 @@ RUN chmod +x /usr/local/bin/languagetool
 ENV FZF_DEFAULT_COMMAND 'ag -g ""'
 
 COPY files/coc-settings.json /root/.config/nvim/coc-settings.json
-
-RUN yarn --cwd $HOME/.config/coc/extensions add coc-tsserver coc-html coc-lists coc-phpls coc-sh coc-css coc-json coc-eslint coc-python coc-java coc-solargraph coc-yaml coc-highlight coc-snippets coc-pairs coc-docker coc-diagnostic
 
 CMD ["nvim"]

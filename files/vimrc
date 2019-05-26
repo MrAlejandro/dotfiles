@@ -142,7 +142,7 @@ let g:coc_global_extensions = [
 
 call plug#end()
 
-set rtp+=/usr/local/opt/fzf
+set rtp+=/root/.fzf
 
 let mapleader = "\<Space>"
 
