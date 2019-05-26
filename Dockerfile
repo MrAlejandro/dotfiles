@@ -16,18 +16,18 @@ RUN apk add --no-cache libffi openssl-dev libffi-dev
 
 RUN apk add --no-cache python3 py-pip python2-dev python3-dev
 RUN apk add --no-cache ruby ruby-dev ruby-bundler ruby-json ruby-irb ruby-rake ruby-bigdecimal ruby-rdoc
-# RUN apk add --no-cache composer php7-simplexml php7-tokenizer php7-xmlwriter
+RUN apk add --no-cache composer php7-simplexml php7-tokenizer php7-xmlwriter
 RUN apk add --no-cache inotify-tools elixir erlang erlang-inets erlang-ssl
 RUN apk add --no-cache openjdk8-jre
 RUN apk add --no-cache neovim
 RUN apk add --no-cache tidyhtml
 RUN apk add --no-cache the_silver_searcher
 
-# RUN composer global config minimum-stability dev
-# RUN composer global require felixfbecker/language-server
-# RUN composer run-script --working-dir=/root/.composer/vendor/felixfbecker/language-server parse-stubs
-# RUN composer global require squizlabs/php_codesniffer
-# RUN composer global require vimeo/psalm
+RUN composer global config minimum-stability dev
+RUN composer global require felixfbecker/language-server
+RUN composer run-script --working-dir=/root/.composer/vendor/felixfbecker/language-server parse-stubs
+RUN composer global require squizlabs/php_codesniffer
+RUN composer global require vimeo/psalm
 
 RUN apk add --no-cache nodejs nodejs-npm
 RUN npm config set unsafe-perm true
@@ -59,6 +59,7 @@ RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 COPY files/vimrc /root/.config/nvim/init.vim
+COPY files/scheakur.vim /root/.config/nvim/colors/scheakur.vim
 
 ENV PATH $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 ENV PATH $HOME/.composer/vendor/bin:$PATH
@@ -73,5 +74,7 @@ RUN chmod +x /usr/local/bin/languagetool
 ENV FZF_DEFAULT_COMMAND 'ag -g ""'
 
 COPY files/coc-settings.json /root/.config/nvim/coc-settings.json
+
+RUN yarn --cwd $HOME/.config/coc/extensions add coc-tsserver coc-html coc-lists coc-phpls coc-sh coc-css coc-json coc-eslint coc-python coc-java coc-solargraph coc-yaml coc-highlight coc-snippets coc-pairs coc-docker coc-diagnostic
 
 CMD ["nvim"]

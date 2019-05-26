@@ -118,7 +118,6 @@ Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 
 Plug 'kana/vim-submode'
-Plug 'kana/vim-submode'
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 let g:coc_global_extensions = [
@@ -207,7 +206,8 @@ set cmdheight=2
 set signcolumn=yes
 set scrolloff=3
 
-silent! colorscheme jellybeans
+set background=light
+silent! colorscheme scheakur
 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
