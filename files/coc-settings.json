@@ -1,4 +1,8 @@
 {
+  "codeLens.enable": true,
+  "solargraph.diagnostics": true,
+  "solargraph.commandPath": "/Users/mralejandro/.rvm/gems/ruby-2.7.2/bin/solargraph",
+  "solargraph.bundlerPath": "/Users/mralejandro/.rvm/rubies/ruby-2.7.2/bin/bundle",
   "diagnostic-languageserver.filetypes": {
     "markdown": "languagetool",
     "elixir": ["mix_credo", "mix_credo_compile"],
@@ -6,5 +10,6 @@
   },
   "diagnostic-languageserver.formatFiletypes": {
     "elixir": "mix_format"
-  }
+  },
+  "coc.preferences.jumpCommand": "tab drop"
 }
