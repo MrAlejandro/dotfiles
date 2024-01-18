@@ -1,8 +1,15 @@
 {
   "codeLens.enable": true,
+  "javascript.referencesCodeLens.enable": false,
+  "typescript.referencesCodeLens.enable": false,
   "solargraph.diagnostics": true,
-  "solargraph.commandPath": "/Users/mralejandro/.rvm/gems/ruby-2.7.2/bin/solargraph",
-  "solargraph.bundlerPath": "/Users/mralejandro/.rvm/rubies/ruby-2.7.2/bin/bundle",
+  "solargraph.commandPath": "/Users/mralejandro/.rvm/rubies/ruby-2.7.4/bin/solargraph",
+  "solargraph.bundlerPath": "/Users/mralejandro/.rvm/rubies/ruby-2.7.4/bin/bundle",
+  "solargraph.autoformat": true,
+  "solargraph.formatting": true,
+  "solargraph.hover": true,
+  "solargraph.logLevel": "debug",
+  "coc.preferences.formatOnSaveFiletypes": ["ruby"],
   "diagnostic-languageserver.filetypes": {
     "markdown": "languagetool",
     "elixir": ["mix_credo", "mix_credo_compile"],
@@ -11,5 +18,11 @@
   "diagnostic-languageserver.formatFiletypes": {
     "elixir": "mix_format"
   },
-  "coc.preferences.jumpCommand": "tab drop"
+  "coc.preferences.jumpCommand": "tab drop",
+  "eslint.workingDirectories": ["/Users/mralejandro/projects/speed_digital/fa/client"],
+  "eslint.options": { "overrideConfigFile": "/Users/mralejandro/projects/speed_digital/fa/client/.eslintrc" },
+  "eslint.nodePath": "/Users/mralejandro/.nvm/versions/node/v18.16.1/bin/node",
+  "eslint.autoFixOnSave": true,
+  "eslint.packageManager": "yarn",
+  "eslint.format.enable": true
 }

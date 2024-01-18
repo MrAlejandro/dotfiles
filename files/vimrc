@@ -5,9 +5,16 @@ setglobal pastetoggle=<F2>
 
 set ttyfast
 set lazyredraw
+" Makes gf work
+set path+=**
+" open file in a new tab
+nnoremap gf <C-W>gf
+vnoremap gf <C-W>gf
 
 let g:python_host_skip_check=1
 let g:loaded_python3_provider=1
+let g:python3_host_prog='/usr/bin/python3'
+set pyxversion=3
 
 " INSTALLATION - :PlugInstall
 call plug#begin('~/.vim/plugged')
@@ -252,11 +259,13 @@ nmap <silent> <leader>t :TestNearest<CR>
 map <leader>vl :vsp $MYVIMRC<CR>
 map <leader>vr :source $MYVIMRC<CR>
 
-map <leader>c :ConjureConnect 55554<CR>
+" map <leader>c :ConjureConnect 55554<CR>
+" copy filepath
+nnoremap <Leader>c :let @+=expand('%:p')<CR>
 
 """ Plugins Keymaps
 
-nmap <C-m> :NERDTreeFind<CR>
+nmap <C-n> :NERDTreeFind<CR>
 nmap <silent> <leader><leader> :NERDTreeToggle<CR>
 
 nnoremap <leader>b :Buffers<CR>
@@ -325,13 +334,13 @@ let g:lexical#spelllang = ['en_us', 'ru_ru']
 " let g:ale_javascript_tsserver_use_global = 1
 " let g:ale_javascript_eslint_use_global = 1
 
-function! EchoStrategy(cmd)
-  execute "!echo '" a:cmd "' > /tmp/.vim/.vbuf"
-  echo 'It works! Command for running tests: ' . a:cmd
+function! ClipboardStrategy(cmd)
+  execute "!echo '" a:cmd "' | pbcopy"
+  echo 'Execution command copied to system clipboard: ' . a:cmd
 endfunction
 
-let g:test#custom_strategies = {'echo': function('EchoStrategy')}
-let g:test#strategy = 'echo'
+let g:test#custom_strategies = {'clipboard': function('ClipboardStrategy')}
+let g:test#strategy = 'clipboard'
 " let test#strategy = "neovim"
 
 " let g:buffergator_viewport_split_policy = "B"
@@ -511,6 +520,8 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
+" Lint current file
+nnoremap <leader>fl :CocDiagnostics<CR>
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -579,3 +590,5 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+let g:ruby_host_prog = '~/.rvm/rubies/ruby-2.7.4/bin/neovim-ruby-host'
