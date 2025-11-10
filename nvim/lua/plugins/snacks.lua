@@ -26,7 +26,6 @@ return {
           -- finder = "files",
           follow_file = false,
           -- supports_live = false,
-          -- follow_file = false,
         },
       },
     },

@@ -1,46 +1,65 @@
 return {
+  -- Enable conform.nvim for formatting
   {
     "stevearc/conform.nvim",
+    -- event = { "BufWritePre" },
+    -- cmd = { "ConformInfo" },
+    -- init = function()
+    --   vim.o.formatexpr = [[v:lua.require("conform").formatexpr()]]
+    -- end,
     opts = {
-      -- log_level: vim.log.levels.DEBUG,
       formatters_by_ft = {
-        php = {
-          "pint",
-          "tlint",
-        },
-        java = { "spotless_gradle" },
-        -- haml = { "haml_lint" },
+        javascript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescript = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
+        -- keep existing ones
+        lua = { "stylua" },
+        ruby = { "rubocop" },
       },
-      formatters = {
-        -- spotless = {
-        --   command = "./gradlew",
-        --   args = { "spotlessApply" },
-        --   cwd = require("conform.util").root_file({ "build.gradle.kts" }),
-        --   stdin = false,
-        -- },
-        -- haml_lint = {
-        --   -- command = "haml-lint",
-        --   -- args = function(self, ctx)
-        --   --   return { "--auto-correct", ctx.filename }
-        --   -- end,
-        --   -- stdin = false,
-        --   -- condition = function(ctx)
-        --   --   return vim.fn.executable("haml-lint") == 1
-        --   -- end,
-        --   -- cwd = require("conform.util").root_file({ ".haml-lint.yml", ".git" }),
-        --   command = "haml-lint",
-        --   args = function(_, ctx)
-        --     return { "--auto-correct", ctx.filename } -- или "--auto-correct-all" для агрессивного режима
-        --   end,
-        --   stdin = false,
-        --   tmpfile_format = ".conform.$RANDOM.$FILENAME", -- используем temp-файл для записи и чтения
-        --   condition = function()
-        --     return vim.fn.executable("haml-lint") == 1
-        --   end,
-        --   cwd = require("conform.util").root_file({ ".haml-lint.yml", ".git" }),
-        --   exit_codes = { 0, 1 }, -- 1 = предупреждения
-        -- },
-      },
+      -- format_on_save = {
+      --   lsp_fallback = true,
+      --   timeout_ms = 500,
+      -- },
+      log_level = vim.log.levels.DEBUG,
+      -- Format on save
+      -- format_on_save = {
+      --   lsp_fallback = true,
+      --   -- lsp_format = "fallback",
+      --   timeout_ms = 500,
+      -- },
+
+      -- Formatters by filetype
+      -- formatters_by_ft = {
+      --   ruby = { "rubocop" }, -- use rubocop as the formatter for Ruby
+      -- },
+
+      -- Optional: Custom formatter configuration
+      -- formatters = {
+      --   rubocop = {
+      --     command = "bundle",
+      --     -- args = { "exec", "rubocop", "--debug", "--autocorrect", "--stderr", "--stdin", "$FILENAME" },
+      --     args = { "exec", "rubocop", "--autocorrect", "$FILENAME" },
+      --     stdin = false,
+      --   },
+      -- },
+      -- formatters = {
+      --   eslint_local = {
+      --     command = "eslint_d",
+      --     args = {
+      --       "--fix",
+      --       function()
+      --         return vim.api.nvim_buf_get_name(0)
+      --       end,
+      --     },
+      --     stdin = false,
+      --     cwd = function()
+      --       -- run eslint_d from client/src so it picks up the local config there
+      --       return vim.fn.getcwd() .. "/client/src"
+      --     end,
+      --     env = { NODE_PATH = vim.fn.getcwd() .. "/node_modules" },
+      --   },
+      -- },
     },
   },
 }
