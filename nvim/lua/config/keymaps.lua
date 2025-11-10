@@ -90,11 +90,15 @@ vim.keymap.set("n", "<leader>cp", function()
   local filepath = vim.fn.expand("%:p")
   local root = require("lazyvim.util").root.get()
   local relpath = filepath:sub(#root + 2)
-
   local line_number = vim.fn.line(".")
-  local path_with_line = relpath .. ":" .. line_number
+  local path_with_line = string.format("%s:%d", relpath, line_number)
 
-  vim.fn.setreg("+", path_with_line)
+  local ok, osc52 = pcall(require, "osc52")
+  if ok then
+    osc52.copy(path_with_line)
+  else
+    vim.fn.setreg("+", path_with_line)
+  end
   print("Copied relative path: " .. path_with_line)
 end, { desc = "Copy relative file path from project root" })
 
@@ -125,3 +129,7 @@ vim.keymap.set("n", "<leader>ct", function()
   vim.cmd("normal! ciw" .. toggled)
   vim.notify("Converted: " .. word .. " → " .. toggled, vim.log.levels.INFO)
 end, { desc = "Toggle snake_case ↔ camelCase" })
+
+vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
+vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
+vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)

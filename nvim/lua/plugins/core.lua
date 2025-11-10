@@ -19,12 +19,21 @@ return {
     "mason-org/mason.nvim",
     opts = { ensure_installed = { "erb-formatter", "erb-lint" } },
   },
-  {
-    "suketa/nvim-dap-ruby",
-    config = function()
-      require("dap-ruby").setup()
-    end,
-  },
+  -- {
+  --   "suketa/nvim-dap-ruby",
+  --   ft = { "ruby" },
+  --   dependencies = { "mfussenegger/nvim-dap" },
+  --   config = function()
+  --     local ok_dap, dap = pcall(require, "dap")
+  --     local ok_ruby, dap_ruby = pcall(require, "dap-ruby")
+  --
+  --     if ok_dap and ok_ruby then
+  --       dap_ruby.setup()
+  --     else
+  --       vim.notify("nvim-dap-ruby: dap not ready", vim.log.levels.WARN)
+  --     end
+  --   end,
+  -- },
   {
     "olimorris/neotest-rspec",
   },

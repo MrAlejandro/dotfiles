@@ -1,5 +1,4 @@
 return {
-  { "mfussenegger/nvim-dap" },
   { "RRethy/nvim-treesitter-endwise" },
   {
     "smjonas/inc-rename.nvim",
