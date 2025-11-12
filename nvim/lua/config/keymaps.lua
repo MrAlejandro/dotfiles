@@ -133,3 +133,22 @@ end, { desc = "Toggle snake_case ↔ camelCase" })
 vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
 vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
 vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
+
+local map = vim.keymap.set
+map("n", "<leader>ac", ":CodeCompanionChat<CR>", { desc = "AI Chat" })
+map("v", "<leader>av", ":CodeCompanion<CR>", { desc = "AI Inline (visual)" })
+map("n", "<leader>ai", ":CodeCompanion<CR>", { desc = "AI Inline" })
+map("v", "<leader>aa", ":CodeCompanionChat Add<CR>", { desc = "AI Chat Add" })
+map("n", "<leader>ax", ":CodeCompanionActions<CR>", { desc = "AI Actions Palette" })
+
+-- vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+-- vim.keymap.set({ "n", "v" }, "<LocalLeader>a", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+-- vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+-- vim.keymap.set({ "n", "v" }, "<leader>ax", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true, desc = "AI Actions Palette" })
+
+-- vim.keymap.set({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanion<cr>", { noremap = true, silent = true, desc = "AI Inline" })
+-- vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true, desc = "AI Chat" })
+-- vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true, desc = 'Add to AI Chat' })
+
+-- Expand 'cc' into 'CodeCompanion' in the command line
+vim.cmd([[cab cc CodeCompanion]])
